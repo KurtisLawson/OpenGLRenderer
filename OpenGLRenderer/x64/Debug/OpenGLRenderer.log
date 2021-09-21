@@ -1,2 +1,6 @@
-﻿  main.cpp
+﻿  RenderableObject.cpp
+C:\Users\kurti\source\repos\OpenGLRenderer\OpenGLRenderer\RenderableObject.cpp(110,132): warning C4312: 'type cast': conversion from 'int' to 'void *' of greater size
+C:\Users\kurti\source\repos\OpenGLRenderer\OpenGLRenderer\RenderableObject.cpp(160,18): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+  main.cpp
+  Generating Code...
   OpenGLRenderer.vcxproj -> C:\Users\kurti\source\repos\OpenGLRenderer\x64\Debug\OpenGLRenderer.exe

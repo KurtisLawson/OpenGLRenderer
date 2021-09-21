@@ -8,26 +8,12 @@
 // Standard Library Includes
 #include <iostream>
 
+const char* vertSource = "./Default.vert";
+const char* fragSource = "./Default.frag";
+const char* texSource = "./container.jpg";
+
 // Namespaces
 using namespace std;
-
-// ---
-// TEMP - Shader code strings
-// ---
-
-const char* vertexShaderSource = "#version 330 core\n"
-"layout (location = 0) in vec3 aPos;\n"
-"void main()\n"
-"{\n"
-"   gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0);\n"
-"}\0";
-
-const char* fragmentShaderSource = "#version 330 core\n"
-"out vec4 FragColor;\n"
-"void main()\n"
-"{\n"
-"	FragColor = vec4(1.0f, 0.5f, 0.2f, 1.0f);\n"
-"}\n";
 
 // ---
 // Function declarations / prototypes.
@@ -86,7 +72,7 @@ int main() {
 	//		There are many GLFW callbacks that can be linked to functions,
 	//		including joystick input and error messages.
 	//
-	//		We link these before the render loop is initiated.
+	//		We link these after the window is created, but before the render loop is initiated.
 	glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 
 	// ---
@@ -97,16 +83,16 @@ int main() {
 	//		4. Draw the object.
 	// 
 	//		These VBO attributes are stored in a Vertex Array Object (VAO). Subsequent vertex attribute calls can be stored in this object.
-	//		We'll only need to configure the VBO's [and shaders?] once. We can bind the object's VAO whenever we need to draw it.
+	//		We'll only need to configure the VBO's [and shaders?] once. We can bind the object's VAO in our render loop whenever we need to draw it.
 	// ---
-	float squareVerts[] = {
+	vector<float> squareVerts = {
 		0.5f,  0.5f, 0.0f,  // top right
 		0.5f, -0.5f, 0.0f,  // bottom right
 		-0.5f, -0.5f, 0.0f,  // bottom left
 		-0.5f,  0.5f, 0.0f   // top left 
 	};
 
-	unsigned int squareIndices[] = { // note that we start from 0!
+	vector<unsigned int> squareIndices = { // note that we start from 0!
 		0, 1, 3,   // first triangle
 		1, 2, 3    // second triangle
 	};
@@ -123,10 +109,10 @@ int main() {
 		0.45f, 0.5f, 0.0f   // top 
 	};
 
-	RenderableObject squareObject = RenderableObject(squareVerts, squareIndices, 6, vertexShaderSource, fragmentShaderSource);
+	RenderableObject squareObject = RenderableObject(squareVerts, squareIndices, 6, vertSource, fragSource, texSource);
 
 	// glPolygonMode(GL_FRONT_AND_BACK, GL_LINE); // Wireframe Rendering
-	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL); // Fill Rendering
 
 	// ---
 	// This is our Render Loop!
@@ -150,7 +136,7 @@ int main() {
 		
 	}
 
-	// optional: de-allocate all resources once they've outlived their purpose:
+	// optional: de-allocate all resources once they've outlived their purpose: (this should probably be handled in RenderableObject as the deconstructor)
 	// ------------------------------------------------------------------------
 	/*glDeleteVertexArrays(1, &VAO);
 	glDeleteBuffers(1, &VBO);
@@ -178,6 +164,6 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 void processInput(GLFWwindow* window)
 {
 	// If Escape key is pressed, send the "Close Window" signal to GLFW and break the Render Loop.
-	if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS) // GLFW_RELEASE is the opposite of GLFW_PRESS 
+	if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS) // GLFW_RELEASE is the opposite of GLFW_PRESS, like KeyUp and KeyDown
 		glfwSetWindowShouldClose(window, true);
 }

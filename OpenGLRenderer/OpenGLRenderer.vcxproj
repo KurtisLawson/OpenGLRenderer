@@ -145,9 +145,22 @@
     <ClCompile Include="..\..\..\..\Desktop\OpenGL\glad\src\glad.c" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="RenderableObject.cpp" />
+    <ClCompile Include="Shader.cpp" />
+    <ClCompile Include="stb_image.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="RenderableObject.h" />
+    <ClInclude Include="Shader.h" />
+    <ClInclude Include="stb_image.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Default.vert" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Default.frag" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="container.jpg" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
