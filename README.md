@@ -1,2 +1,2 @@
 # OpenGLRenderer
-An OpenGL Renderer in native C++
+A simple OpenGL Render Pipeline for use within Osiris
